@@ -1,42 +1,45 @@
 import React from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Bot, Cpu, Globe, Smartphone, Database, Cloud } from 'lucide-react';
 
 const Services = () => {
+  const { t } = useTranslation();
+
   const services = [
     {
       icon: <Bot className="service-icon-main" />,
-      title: "AI Разработка",
-      description: "Создание и внедрение нейросетей, машинное обучение и обработка естественного языка.",
+      title: t('services.aiDevelopment'),
+      description: t('services.aiDescription'),
       classModifier: "service-purple"
     },
     {
       icon: <Cpu className="service-icon-main" />,
-      title: "Интеллектуальные системы",
-      description: "Разработка сложных систем с искусственным интеллектом для анализа данных.",
+      title: t('services.intelligentSystems'),
+      description: t('services.intelligentDescription'),
       classModifier: "service-blue"
     },
     {
       icon: <Globe className="service-icon-main" />,
-      title: "Веб-решения",
-      description: "Современные веб-приложения на React, Next.js с интеграцией AI.",
+      title: t('services.webSolutions'),
+      description: t('services.webDescription'),
       classModifier: "service-green"
     },
     {
       icon: <Smartphone className="service-icon-main" />,
-      title: "Мобильные приложения",
-      description: "Кроссплатформенные приложения с использованием AI-функций.",
+      title: t('services.mobileApps'),
+      description: t('services.mobileDescription'),
       classModifier: "service-red"
     },
     {
       icon: <Database className="service-icon-main" />,
-      title: "Анализ данных",
-      description: "Обработка больших данных, аналитика и визуализация.",
+      title: t('services.dataAnalysis'),
+      description: t('services.dataDescription'),
       classModifier: "service-yellow"
     },
     {
       icon: <Cloud className="service-icon-main" />,
-      title: "Облачные решения",
-      description: "Развертывание AI-моделей в облаке, микросервисная архитектура.",
+      title: t('services.cloudSolutions'),
+      description: t('services.cloudDescription'),
       classModifier: "service-indigo"
     }
   ];
@@ -46,10 +49,13 @@ const Services = () => {
       <div className="services-container">
         <div className="services-header">
           <h2 className="services-title">
-            Наши <span className="services-title-accent">услуги</span>
+            {/* Используем Trans для обработки <1></1> из JSON */}
+            <Trans i18nKey="services.title">
+              Наши <span className="services-title-accent">услуги</span>
+            </Trans>
           </h2>
           <p className="services-subtitle">
-            Предоставляем полный спектр услуг в области искусственного интеллекта и разработки ПО
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -69,7 +75,7 @@ const Services = () => {
                 {service.description}
               </p>
               <button className={`service-link ${service.classModifier}`}>
-                Узнать больше →
+                {t('common.viewMore')}
               </button>
             </div>
           ))}
@@ -77,7 +83,7 @@ const Services = () => {
 
         <div className="services-cta-wrapper">
           <button className="services-cta-button">
-            Обсудить ваш проект
+            {t('common.discussProject')}
           </button>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CompetencyCard = ({ iconClass, title, description, tech }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="competency-card-item">
       <div className={`competency-card-icon ${iconClass}`}>
@@ -13,7 +16,10 @@ const CompetencyCard = ({ iconClass, title, description, tech }) => {
       <h3 className="competency-card-title">{title}</h3>
       <p className="competency-card-description">{description}</p>
 
-      <div className="competency-tech-subtitle">Технологии</div>
+      <div className="competency-tech-subtitle">
+        {t('competencies.techTitle', 'Technologies')}
+      </div>
+
       <div className="competency-tech-tags">
         {tech.map((techItem, index) => (
           <span key={index} className="competency-tech-tag">
@@ -23,7 +29,7 @@ const CompetencyCard = ({ iconClass, title, description, tech }) => {
       </div>
 
       <button className="competency-card-cta">
-        Подробнее
+        {t('common.viewMore', 'Learn more')}
       </button>
     </div>
   );

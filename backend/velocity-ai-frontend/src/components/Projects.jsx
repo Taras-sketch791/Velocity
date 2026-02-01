@@ -1,109 +1,105 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 
 const mockProjects = [
   {
     id: 1,
-    title: "Платформа для реферального маркентинга",
-    description: "Автоматизированная система управления реферальными программами с Ai-аналитикой",
-    fullDescription: "Система на основе глубокого обучения, которая обрабатывает 80% входящих запросов без участия человека.",
+    titleKey: "projects.items.referral.title",
+    descKey: "projects.items.referral.desc",
+    fullDescKey: "projects.items.referral.fullDesc",
     color: '#8B5CF6',
     status: 'live',
     isLarge: true,
     categories: ['ai', 'bot'],
     tags: ['Flask', 'WB API', 'FastAPI', 'AI Analytics'],
     link: 'https://reflow-sales.ru/',
-    metrics: [], // Исправлено: массив должен быть определен
-    features: [] // Исправлено: массив должен быть определен
+    metrics: [],
+    features: []
   },
   {
     id: 2,
-    title: "Ассистент Gemini",
-    description: "Упрощенный AI-ассистент для быстрых ответов и автоматизации рутинных задач",
-    fullDescription: "Математическая модель, разработанная для повышения точности прогнозов до 95%.",
+    titleKey: "projects.items.gemini.title",
+    descKey: "projects.items.gemini.desc",
+    fullDescKey: "projects.items.gemini.fullDesc",
     color: '#F59E0B',
     status: 'demo',
     isLarge: false,
     categories: ['ai', 'data'],
     tags: ['Gemini API', 'Python', 'Telegram Interface'],
     link: 'https://t.me/gemini_assistent_bot',
-    metrics: [], // Исправлено: массив должен быть определен
+    metrics: [],
     features: [
-      "Прогнозирование временных рядов",
-      "Визуализация данных",
-      "Отчетность в реальном времени"
+      "projects.items.gemini.feature1",
+      "projects.items.gemini.feature2",
+      "projects.items.gemini.feature3"
     ]
   },
   {
     id: 3,
-    title: "Платформа для психологов",
-    description: "Комплексное решение для ведения практики с Ai-помощником и системой записи",
-    fullDescription: "Система на основе глубокого обучения, которая обрабатывает 80% входящих запросов без участия человека.",
+    titleKey: "projects.items.psycho.title",
+    descKey: "projects.items.psycho.desc",
+    fullDescKey: "projects.items.psycho.fullDesc",
     color: '#8B5CF6',
     status: 'live',
     isLarge: true,
     categories: ['ai', 'bot'],
     tags: ['Flask', 'PostgreeSQL', 'NLP'],
     link: 'https://psycho-passport.ru/',
-    metrics: [], // Исправлено: массив должен быть определен
-    features: [] // Исправлено: массив должен быть определен
+    metrics: [],
+    features: []
   },
   {
     id: 4,
-    title: "Бот для настроек криптошлюзов",
-    description: "Автоматизированный бот для управления криптовалютными платежными шлюзами",
-    fullDescription: "Система на основе глубокого обучения, которая обрабатывает 80% входящих запросов без участия человека.",
+    titleKey: "projects.items.crypto.title",
+    descKey: "projects.items.crypto.desc",
+    fullDescKey: "projects.items.crypto.fullDesc",
     color: '#8B5CF6',
     status: 'live',
     isLarge: true,
     categories: ['ai', 'bot'],
     tags: ['Telegram Bot', 'Blockchain', 'Aiogram'],
     link: 'https://t.me/ralavadabot',
-    metrics: [], // Исправлено: массив должен быть определен
-    features: [] // Исправлено: массив должен быть определен
+    metrics: [],
+    features: []
   }
 ];
 
-const mockFilters = [
-  { id: 'all', label: 'Все проекты' },
-  { id: 'ai', label: 'AI/ML' },
-  { id: 'bot', label: 'Чат-боты' },
-  { id: 'data', label: 'Аналитика' }
-];
-
-
 const Projects = () => {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeProject, setActiveProject] = useState(null);
 
-  // Логика фильтрации
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === 'all') {
-      return mockProjects;
-    }
-    return mockProjects.filter(project =>
-      project.categories.includes(activeFilter)
-    );
-  }, [activeFilter]);
+  const mockFilters = [
+    { id: 'all', label: t('projects.all') },
+    { id: 'ai', label: t('projects.ai') },
+    { id: 'bot', label: t('projects.bot') },
+    { id: 'data', label: t('projects.data') }
+  ];
 
-  const filters = mockFilters;
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === 'all') return mockProjects;
+    return mockProjects.filter(project => project.categories.includes(activeFilter));
+  }, [activeFilter]);
 
   return (
     <section id="projects" className="projects-section">
       <div className="projects-container">
         <div className="projects-header">
           <h2 className="projects-title">
-            Наши <span className="projects-title-gradient">проекты</span>
+            <Trans i18nKey="projects.title">
+              Наши <span className="projects-title-gradient">проекты</span>
+            </Trans>
           </h2>
           <p className="projects-subtitle">
-            Реализованные решения для различных бизнес-задач с использованием AI
+            {t('projects.subtitle')}
           </p>
         </div>
 
         <div className="projects-filters">
-          {filters.map(filter => (
+          {mockFilters.map(filter => (
             <button
               key={filter.id}
-              className={`filter-btn ${activeFilter === filter.id ? 'active' : ''}`} // Исправлено: использованы обратные кавычки
+              className={`filter-btn ${activeFilter === filter.id ? 'active' : ''}`}
               onClick={() => setActiveFilter(filter.id)}
             >
               {filter.label}
@@ -111,22 +107,18 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Сетка проектов */}
         <div className="projects-grid">
           {filteredProjects.map(project => (
-            <div
-              key={project.id}
-              className={`project-card ${project.isLarge ? 'project-card-large' : ''}`} // Исправлено: использованы обратные кавычки
-            >
+            <div key={project.id} className={`project-card ${project.isLarge ? 'project-card-large' : ''}`}>
               <div className="project-preview" style={{ background: project.color }}>
                 <div className={`project-status project-status-${project.status}`}>
-                  {project.status === 'live' ? 'Live' : project.status === 'demo' ? 'Demo' : 'В разработке'}
+                  {project.status === 'live' ? 'Live' : project.status === 'demo' ? 'Demo' : t('projects.inDevelopment')}
                 </div>
               </div>
 
               <div className="project-content">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
+                <h3 className="project-title">{t(project.titleKey)}</h3>
+                <p className="project-description">{t(project.descKey)}</p>
 
                 <div className="project-tags">
                   {project.tags.map((tag, index) => (
@@ -134,29 +126,12 @@ const Projects = () => {
                   ))}
                 </div>
 
-                <div className="project-metrics">
-                  {project.metrics && project.metrics.map((metric, index) => (
-                    <div key={index} className="project-metric">
-                      <div className="project-metric-value">{metric.value}</div>
-                      <div className="project-metric-label">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="project-actions">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-btn project-btn-primary"
-                  >
-                    {project.categories.includes('bot') ? 'Попробовать →' : 'Посмотреть →'}
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-btn project-btn-primary">
+                    {project.categories.includes('bot') ? t('projects.tryProject') : t('projects.viewProject')}
                   </a>
-                  <button
-                    className="project-btn"
-                    onClick={() => setActiveProject(project)}
-                  >
-                    Подробнее
+                  <button className="project-btn" onClick={() => setActiveProject(project)}>
+                    {t('projects.details')}
                   </button>
                 </div>
               </div>
@@ -165,56 +140,34 @@ const Projects = () => {
         </div>
 
         <div className="projects-cta">
-          <p className="projects-cta-text">Хотите реализовать похожий проект?</p>
-          <a
-            href="https://t.me/TarasMaxs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            Обсудить проект
+          <p className="projects-cta-text">{t('projects.cta')}</p>
+          <a href="https://t.me/TarasMaxs" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            {t('common.discussProject')}
           </a>
         </div>
       </div>
 
-      {/* Модальное окно */}
       {activeProject && (
         <div className="project-modal-overlay" onClick={() => setActiveProject(null)}>
           <div className="project-modal" onClick={e => e.stopPropagation()}>
-            <button
-              className="project-modal-close"
-              onClick={() => setActiveProject(null)}
-            >
-              ×
-            </button>
+            <button className="project-modal-close" onClick={() => setActiveProject(null)}>×</button>
 
             <div className="project-modal-header">
-              <h2 className="project-modal-title">{activeProject.title}</h2>
-              <p className="project-modal-subtitle">{activeProject.fullDescription}</p>
+              <h2 className="project-modal-title">{t(activeProject.titleKey)}</h2>
+              <p className="project-modal-subtitle">{t(activeProject.fullDescKey)}</p>
             </div>
 
             <div className="project-modal-content">
               <div>
-                <h3>Основные функции</h3>
+                <h3>{t('projects.mainFeatures')}</h3>
                 <ul className="project-modal-features">
-                  {activeProject.features && activeProject.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                  {activeProject.features && activeProject.features.map((featureKey, index) => (
+                    <li key={index}>{t(featureKey)}</li>
                   ))}
                 </ul>
               </div>
-
               <div>
-                <h3>Результаты</h3>
-                <div className="project-modal-results">
-                  {activeProject.metrics && activeProject.metrics.map((metric, index) => (
-                    <div key={index} className="project-modal-result">
-                      <span className="project-modal-result-label">{metric.label}</span>
-                      <span className="project-modal-result-value">{metric.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <h3>Технологии</h3>
+                <h3>{t('projects.technologies')}</h3>
                 <div className="project-modal-technologies">
                   {activeProject.tags.map((tech, index) => (
                     <span key={index} className="project-modal-tech-tag">{tech}</span>
@@ -224,21 +177,11 @@ const Projects = () => {
             </div>
 
             <div className="project-modal-actions">
-              <a
-                href={activeProject.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                {activeProject.categories.includes('bot') ? 'Попробовать проект' : 'Посмотреть проект'}
+              <a href={activeProject.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                {activeProject.categories.includes('bot') ? t('projects.tryProject') : t('projects.viewProject')}
               </a>
-              <a
-                href="https://t.me/TarasMaxs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-              >
-                Обсудить похожий проект
+              <a href="https://t.me/TarasMaxs" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                {t('common.discussProject')}
               </a>
             </div>
           </div>

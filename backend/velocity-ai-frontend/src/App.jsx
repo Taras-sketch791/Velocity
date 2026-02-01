@@ -1,6 +1,6 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./index.css";
+import React, { Suspense } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -10,6 +10,18 @@ import Footer from "./components/Footer";
 import Competencies from "./components/Competencies/Competencies";
 import ContactForm from "./components/ContactForm";
 import RegisterPage from "./components/RegisterPage";
+
+// Компонент загрузки на случай если i18n еще не готов
+const Loading = () => (
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh'
+  }}>
+    Загрузка...
+  </div>
+);
 
 function HomePage() {
   return (
@@ -30,13 +42,13 @@ function HomePage() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </Suspense>
   );
 }
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Sparkles, X, Loader2, Send, DollarSign, FileText } from 'lucide-react';
+import { Bot, Sparkles, X, Loader2 } from 'lucide-react';
 
 const GeminiAIHelper = ({ onSuggestionInsert, currentMessage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiResponse, setAiResponse] = useState('');
   const [displayedText, setDisplayedText] = useState('');
-  const [userInput, setUserInput] = useState('');
   const scrollRef = useRef(null);
 
   const quickPrompts = ["Сформулируй ТЗ", "Выбери стек", "Архитектура"];

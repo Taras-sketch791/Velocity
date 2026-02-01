@@ -1,148 +1,77 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const RegisterPage = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    });
+const LoginPage = () => {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
 
-    const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState(''); // success | error
+    const [formData, setFormData] = useState({ username: '', password: '' });
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
-    const navigate = useNavigate();
-
     const handleChange = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage('');
-        setMessageType('');
-
-
-        if (formData.password !== formData.confirmPassword) {
-            setMessage('Пароли не совпадают');
-            setMessageType('error');
-            return;
-        }
-
+        setError('');
         setLoading(true);
 
         try {
-            await axios.post(`${API_URL}/api/register/`, {
-                username: formData.username,
-                email: formData.email,
-                password: formData.password,
-            });
-
-
-            const loginResponse = await axios.post(`${API_URL}/api/login/`, {
-                username: formData.username,
-                password: formData.password,
-            });
-
-            // 3. Сохраняем токены
-            localStorage.setItem('access_token', loginResponse.data.access);
-            localStorage.setItem('refresh_token', loginResponse.data.refresh);
-
-            setMessage('✅ Регистрация успешна! Вход выполнен...');
-            setMessageType('success');
-
-            // ✅ Плавная навигация
-            setTimeout(() => {
-                navigate('/');
-            }, 1500);
-
-        } catch (err) {
-            setMessageType('error');
-            if (err.response?.data) {
-                const errorData = err.response.data;
-                const firstError = Object.values(errorData).flat()[0];
-                setMessage(firstError || 'Ошибка регистрации');
-            } else {
-                setMessage('Сервер недоступен');
+            const response = await axios.post(`${API_URL}/api/login/`, formData);
+            if (response.data.access) {
+                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem('refresh_token', response.data.refresh);
+                navigate('/'); // Используем navigate вместо window.location
             }
+        } catch (err) {
+            setError(t('auth.errors.invalidCredentials'));
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="register-page">
-            <div className="register-container" style={{ maxWidth: '500px', margin: '50px auto', padding: '30px' }}>
-                <h1 style={{ textAlign: 'center', marginBottom: '25px' }}>Регистрация</h1>
+        <div className="auth-page" style={{ padding: '100px 20px', display: 'flex', justifyContent: 'center' }}>
+            <div className="auth-card" style={{ maxWidth: '400px', width: '100%', background: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>{t('auth.loginTitle')}</h2>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     <input
                         type="text"
                         name="username"
-                        placeholder="Логин"
+                        placeholder={t('auth.placeholders.username')}
                         value={formData.username}
                         onChange={handleChange}
                         required
-                        style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '6px', border: '1px solid #ddd' }}
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '6px', border: '1px solid #ddd' }}
+                        style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ddd' }}
                     />
                     <input
                         type="password"
                         name="password"
-                        placeholder="Пароль"
+                        placeholder={t('auth.placeholders.password')}
                         value={formData.password}
                         onChange={handleChange}
                         required
-                        style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '6px', border: '1px solid #ddd' }}
+                        style={{ padding: '12px', borderRadius: '6px', border: '1px solid #ddd' }}
                     />
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Подтвердите пароль"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '12px', marginBottom: '20px', borderRadius: '6px', border: '1px solid #ddd' }}
-                    />
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        style={{ width: '100%', padding: '12px', background: '#28a745', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
-                    >
-                        {loading ? 'Загрузка...' : 'Создать аккаунт'}
+                    {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
+                    <button type="submit" disabled={loading} style={{ padding: '12px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                        {loading ? t('auth.loggingIn') : t('auth.loginBtn')}
                     </button>
                 </form>
 
-                {message && (
-                    <div className={`message ${messageType}`} style={{ marginTop: '15px', padding: '10px', borderRadius: '6px', color: messageType === 'error' ? 'red' : 'green', background: messageType === 'error' ? '#ffe6e6' : '#e6ffe6' }}>
-                        {message}
-                    </div>
-                )}
-
-                <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                    <p>Уже есть аккаунт? <a href="/login" style={{ color: '#007bff' }}>Войти</a></p>
+                <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px' }}>
+                    {t('auth.noAccount')} <a href="/register" style={{ color: '#007bff' }}>{t('auth.registerLink')}</a>
                 </div>
             </div>
         </div>
     );
 };
 
-export default RegisterPage;
+export default LoginPage;

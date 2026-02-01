@@ -1,7 +1,9 @@
 import React from 'react';
-// import { motion } from "framer-motion";
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function HeroSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="hero-main-section">
       <div className="hero-glow-container">
@@ -12,34 +14,33 @@ export default function HeroSection() {
       <div className="hero-content-container">
         <div className="hero-text-center">
           <h1 className="hero-title">
-            Создаём цифровое будущее
-            <br />
-
-            <span className="title-gradient">
-              с искусственным интеллектом
-            </span>
+            <Trans i18nKey="hero.mainTitle">
+              Создаём цифровое будущее
+              <br />
+              <span className="title-gradient">
+                с искусственным интеллектом
+              </span>
+            </Trans>
           </h1>
 
           <p className="hero-subtitle-text">
-            Разрабатываем intelligent веб‑системы, платформы и ботов,
-            которые решают реальные бизнес‑задачи
+            {t('hero.subtitleText', 'Разрабатываем intelligent веб‑системы, платформы и ботов, которые решают реальные бизнес‑задачи')}
           </p>
 
           <div className="hero-actions">
-
             <button className="btn btn-primary-action">
-              Обсудить проект
+              {t('common.discussProject')}
             </button>
 
             <button className="btn btn-secondary-action">
-              Смотреть кейсы
+              {t('hero.viewCases', 'Смотреть кейсы')}
             </button>
           </div>
 
           <div className="hero-stats-grid">
-            <Stat value="30+" label="реализованных проектов" />
-            <Stat value="2+" label="года AI‑разработки" />
-            <Stat value="100%" label="успешных запусков" />
+            <Stat value="30+" label={t('hero.stats.projectsDone', 'реализованных проектов')} />
+            <Stat value="2+" label={t('hero.stats.yearsExp', 'года AI‑разработки')} />
+            <Stat value="100%" label={t('hero.stats.successRate', 'успешных запусков')} />
           </div>
         </div>
       </div>

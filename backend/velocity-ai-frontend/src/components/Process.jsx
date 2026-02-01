@@ -1,30 +1,33 @@
 import React from 'react';
 import { Search, Layers, Code, Rocket } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Process = () => {
+  const { t } = useTranslation();
+
   const steps = [
     {
       number: '01',
-      title: 'Анализ',
-      description: 'Погружаемся в бизнес-процессы, изучаем цели и формируем техническое задание',
+      title: t('process.analysis'),
+      description: t('process.analysisDescription'),
       icon: <Search className="process-icon" />
     },
     {
       number: '02',
-      title: 'Прототипирование',
-      description: 'Создаём интерфейсы и архитектуру решения, утверждаем с клиентом',
+      title: t('process.prototyping'),
+      description: t('process.prototypingDescription'),
       icon: <Layers className="process-icon" />
     },
     {
       number: '03',
-      title: 'Разработка',
-      description: 'Реализуем проект по agile-методологии с регулярными демонстрациями',
+      title: t('process.development'),
+      description: t('process.developmentDescription'),
       icon: <Code className="process-icon" />
     },
     {
       number: '04',
-      title: 'Запуск',
-      description: 'Развёртываем систему, обучаем пользователей и обеспечиваем поддержку',
+      title: t('process.launch'),
+      description: t('process.launchDescription'),
       icon: <Rocket className="process-icon" />
     }
   ];
@@ -32,11 +35,7 @@ const Process = () => {
   return (
     <section id="process" className="process-section">
       <div className="process-container">
-        <h2 className="section-title-process">Как мы работаем</h2>
-        {/*
-
-[Image of the software development life cycle]
- */}
+        <h2 className="section-title-process">{t('process.title')}</h2>
 
         <div className="process-grid">
           {steps.map((step, index) => (

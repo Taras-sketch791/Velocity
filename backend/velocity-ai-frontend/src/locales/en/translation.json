@@ -1,0 +1,190 @@
+{
+  "common": {
+    "discussProject": "Discuss project",
+    "viewMore": "Learn more →",
+    "send": "Send",
+    "loading": "Loading...",
+    "success": "Success!",
+    "error": "Error"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "process": "Process",
+    "projects": "Projects",
+    "competencies": "Competencies",
+    "contact": "Contact"
+  },
+  "auth": {
+    "loginTitle": "Login to Velocity",
+    "registrationTitle": "Registration",
+    "createAccountBtn": "Create account",
+    "loginBtn": "Login",
+    "loggingIn": "Logging in...",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "loginLink": "Login",
+    "registerLink": "Register",
+    "logout": "Logout",
+    "placeholders": {
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
+    },
+    "errors": {
+      "passwordMismatch": "Passwords do not match",
+      "registrationFailed": "Registration failed",
+      "serverUnavailable": "Server unavailable",
+      "invalidCredentials": "Invalid username or password"
+    },
+    "success": {
+      "registered": "✅ Registration successful! Logging in..."
+    }
+  },
+  "hero": {
+    "tagline": "We create the AI future",
+    "title": "AI Development Studio",
+    "mainTitle": "Creating the digital future <1>with artificial intelligence</1>",
+    "subtitle": "We create innovative AI-based products. We develop intelligent web systems and platforms.",
+    "viewCases": "View cases",
+    "stats": {
+      "projects": "Projects completed",
+      "clients": "Happy clients",
+      "experience": "Years of experience",
+      "support": "24/7 Support"
+    }
+  },
+  "competencies": {
+    "title": "Competencies",
+    "techTitle": "Technologies",
+    "items": {
+      "ai": {
+        "title": "Artificial Intelligence",
+        "description": "Development of deep neural networks and machine learning systems for business automation."
+      },
+      "web": {
+        "title": "Web Development",
+        "description": "Creating high-load web services and corporate portals on modern tech stack."
+      },
+      "mobile": {
+        "title": "Mobile Applications",
+        "description": "Development of native and cross-platform mobile solutions of any complexity."
+      },
+      "cloud": {
+        "title": "Cloud Solutions",
+        "description": "Designing and optimizing cloud infrastructure and DevOps processes."
+      }
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We offer full-cycle AI product development",
+    "aiDevelopment": "AI Development",
+    "aiDescription": "Custom neural network and machine learning solutions.",
+    "intelligentSystems": "Intelligent Systems",
+    "intelligentDescription": "Business process automation using AI.",
+    "webSolutions": "Web Solutions",
+    "webDescription": "Web services with integrated artificial intelligence.",
+    "mobileApps": "Mobile Apps",
+    "mobileDescription": "Smart iOS and Android applications with AI assistants.",
+    "dataAnalysis": "Data Analysis",
+    "dataDescription": "Deep analytics and predictive models for business.",
+    "cloudSolutions": "Cloud Solutions",
+    "cloudDescription": "Scalable server solutions for AI workloads."
+  },
+  "process": {
+    "title": "Our Process",
+    "analysis": "Analysis",
+    "analysisDescription": "Studying requirements and system design.",
+    "prototyping": "Prototyping",
+    "prototypingDescription": "Creating mockups and solution architecture.",
+    "development": "Development",
+    "developmentDescription": "Writing clean code and training models.",
+    "launch": "Launch",
+    "launchDescription": "System deployment and production launch."
+  },
+  "projects": {
+    "title": "Our Projects",
+    "subtitle": "AI-powered solutions for business",
+    "all": "All",
+    "ai": "AI Solutions",
+    "bot": "Bots",
+    "data": "Data",
+    "cta": "Ready to start your project?",
+    "tryProject": "Try →",
+    "viewProject": "View →",
+    "details": "Details",
+    "inDevelopment": "In development",
+    "mainFeatures": "Main Features",
+    "technologies": "Technologies",
+    "items": {
+      "referral": {
+        "title": "WB Referral System",
+        "desc": "Analytics automation for marketplaces.",
+        "fullDesc": "Comprehensive analytics and reporting automation system for Wildberries marketplaces using AI.",
+        "feature1": "Automatic data processing from WB API",
+        "feature2": "AI sales analysis and forecasting",
+        "feature3": "Real-time report generation"
+      },
+      "gemini": {
+        "title": "Gemini Integration",
+        "desc": "Smart assistant based on latest LLM models.",
+        "fullDesc": "Google Gemini AI integration for creating smart Telegram bots with advanced capabilities.",
+        "feature1": "Contextual dialogue support",
+        "feature2": "Image and text processing",
+        "feature3": "Multilingual support"
+      },
+      "psycho": {
+        "title": "AI Psychologist",
+        "desc": "Platform for emotional state analysis.",
+        "fullDesc": "Psychological assistance platform using NLP for analyzing users' emotional state.",
+        "feature1": "Text analysis for emotional coloring",
+        "feature2": "Personalized recommendations",
+        "feature3": "24/7 anonymous support"
+      },
+      "crypto": {
+        "title": "Crypto Bot",
+        "desc": "Trading tools for the crypto market.",
+        "fullDesc": "Telegram bot for automated trading on cryptocurrency exchanges using AI algorithms.",
+        "feature1": "Automated trading by strategies",
+        "feature2": "Market trend analysis",
+        "feature3": "Important event notifications"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Tell us about your project",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "budget": "Project budget",
+      "paymentMethod": "Payment method",
+      "projectType": "Project type",
+      "description": "Project description",
+      "send": "Send application",
+      "sending": "Sending...",
+      "success": "Message sent!"
+    },
+    "options": {
+      "payment": {
+        "crypto": "Cryptocurrency (USDT/BTC)",
+        "stripe": "Stripe / Card",
+        "bank": "Bank transfer"
+      },
+      "projectType": {
+        "ai": "AI Development",
+        "web": "Web Application",
+        "mobile": "Mobile Application",
+        "consulting": "Consulting"
+      }
+    }
+  },
+  "footer": {
+    "about": "Velocity AI — Creating the digital future",
+    "contact": "Contact us",
+    "copyright": "© {{year}} Velocity AI. All rights reserved.",
+    "madeWithLove": "Made with ❤️ for the digital future"
+  }
+}

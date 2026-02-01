@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
@@ -18,60 +22,42 @@ const Header = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => setIsMenuOpen(false);
-
   const navLinks = [
-    { id: 'hero', label: 'Главная' },
-    { id: 'services', label: 'Услуги' },
-    { id: 'process', label: 'Процесс' },
-    { id: 'projects', label: 'Проекты' },
-    { id: 'competencies', label: 'Компетенции' },
+    { id: 'hero', label: t('nav.home') },
+    { id: 'services', label: t('nav.services') },
+    { id: 'process', label: t('nav.process') },
+    { id: 'projects', label: t('nav.projects') },
+    { id: 'competencies', label: t('nav.competencies') },
   ];
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-    closeMenu();
+    setIsMenuOpen(false);
   };
 
-  const openRegisterWindow = () => {
-    const width = 500;
-    const height = 600;
-    const left = (window.screen.width - width) / 2;
-    const top = (window.screen.height - height) / 2;
-
-    const win = window.open(
-      '/register',
-      'registerWindow',
-      `width=${width},height=${height},left=${left},top=${top}`
-    );
-
-    if (!win) {
-      alert('Разрешите всплывающие окна');
+  const handleAuthClick = () => {
+    if (isAuth) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      setIsAuth(false);
+      navigate('/');
+      window.location.reload();
+    } else {
+      navigate('/register');
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('access_token');
-    setIsAuth(false);
-    navigate('/');
-    window.location.reload();
   };
 
   return (
     <header className="header">
       <div className="header-container">
-        <a href="/" className="logo" onClick={(e) => e.preventDefault()}>
-          Velocity
-        </a>
+        <Link to="/" className="logo">Velocity</Link>
 
-        <nav className={`nav ${isMobile ? 'mobile-only' : ''}`}>
+        <nav className={`nav ${isMobile ? 'mobile-hidden' : ''}`}>
           {navLinks.map(link => (
             <a
               key={link.id}
               href={`#${link.id}`}
-              className="nav-link"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(link.id);
@@ -82,60 +68,17 @@ const Header = () => {
           ))}
         </nav>
 
-        {isAuth ? (
-          <button className="btn" onClick={handleLogout}>
-            Выйти
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <LanguageSwitcher />
+
+          {/* 🔥 ТА ЖЕ КНОПКА, ЧТО "ОБСУДИТЬ ПРОЕКТ" */}
+          <button
+            className="btn btn-primary"
+            onClick={handleAuthClick}
+          >
+            {isAuth ? t('auth.logout') : t('auth.registerLink')}
           </button>
-        ) : (
-          <button className="btn btn-primary" onClick={openRegisterWindow}>
-            Регистрация
-          </button>
-        )}
-
-        {/* Мобильное меню */}
-        {isMobile && (
-          <>
-            <button
-              className={`burger ${isMenuOpen ? 'active' : ''}`}
-              onClick={toggleMenu}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-
-            <div
-              className={`nav-overlay ${isMenuOpen ? 'active' : ''}`}
-              onClick={closeMenu}
-            />
-
-            <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
-              <nav className="mobile-nav">
-                {navLinks.map(link => (
-                  <a
-                    key={link.id}
-                    href={`#${link.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.id);
-                    }}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-
-              {!isAuth && (
-                <button
-                  className="btn btn-primary mobile-cta-btn"
-                  onClick={openRegisterWindow}
-                >
-                  Регистрация
-                </button>
-              )}
-            </div>
-          </>
-        )}
+        </div>
       </div>
     </header>
   );

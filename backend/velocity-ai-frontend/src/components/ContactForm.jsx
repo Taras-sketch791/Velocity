@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Send, Loader2, CheckCircle, DollarSign, CreditCard } from 'lucide-react';
 import GeminiAIHelper from './GeminiAIHelper';
+import { useTranslation } from 'react-i18next';
 
 const ContactForm = () => {
-  // ВАЖНО: В будущем вынесите это на бэкенд (Django)
+  const { t } = useTranslation();
+
   const TELEGRAM_BOT_TOKEN = '8556181877:AAHdPJjCmLjXuNg7adnb-BRiOqAZKjUfgaE';
   const TELEGRAM_CHAT_ID = '5478197533';
 
@@ -34,13 +36,13 @@ const ContactForm = () => {
     setStatus('loading');
 
     const text = `
-🚀 **Новая заявка с сайта!**
-👤 **Имя:** ${formData.name}
+🚀 **${t('contact.telegram.newApplication', 'Новая заявка с сайта!')}**
+👤 **${t('contact.telegram.name', 'Имя')}:** ${formData.name}
 📧 **Email:** ${formData.email}
-Тип: ${formData.projectType}
-💰 **Бюджет:** ${formData.budget || 'Не указан'}
-💳 **Платежная система:** ${formData.paymentSystem || 'Не выбрана'}
-📝 **Описание:** ${formData.message}
+${t('contact.telegram.type', 'Тип')}: ${formData.projectType}
+💰 **${t('contact.telegram.budget', 'Бюджет')}:** ${formData.budget || t('contact.telegram.notSpecified', 'Не указан')}
+💳 **${t('contact.telegram.paymentSystem', 'Платежная система')}:** ${formData.paymentSystem || t('contact.telegram.notChosen', 'Не выбрана')}
+📝 **${t('contact.telegram.description', 'Описание')}:** ${formData.message}
     `;
 
     try {
@@ -65,9 +67,9 @@ const ContactForm = () => {
   return (
     <section id="contact" style={{ padding: '80px 20px', background: '#f8fafc' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto', background: '#fff', padding: '40px', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '10px', textAlign: 'center' }}>Оставить заявку</h2>
+        <h2 style={{ fontSize: '2rem', marginBottom: '10px', textAlign: 'center' }}>{t('contact.title')}</h2>
         <p style={{ color: '#64748b', textAlign: 'center', marginBottom: '30px' }}>
-          Расскажите о вашей идее, и мы свяжемся с вами в ближайшее время.
+          {t('contact.subtitle')}
         </p>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -76,7 +78,7 @@ const ContactForm = () => {
             <input
               type="text"
               name="name"
-              placeholder="Ваше имя"
+              placeholder={t('contact.name')}
               required
               value={formData.name}
               onChange={handleChange}
@@ -85,7 +87,7 @@ const ContactForm = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t('contact.email')}
               required
               value={formData.email}
               onChange={handleChange}
@@ -94,20 +96,18 @@ const ContactForm = () => {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
-            {/* Поле Стоимость */}
             <div style={{ position: 'relative' }}>
               <DollarSign size={18} style={{ position: 'absolute', left: '12px', top: '14px', color: '#94a3b8' }} />
               <input
                 type="text"
                 name="budget"
-                placeholder="Ожидаемый бюджет"
+                placeholder={t('contact.budget')}
                 value={formData.budget}
                 onChange={handleChange}
                 style={{ padding: '12px 12px 12px 40px', borderRadius: '8px', border: '1px solid #ddd', width: '100%' }}
               />
             </div>
 
-            {/* Поле Платежная система */}
             <div style={{ position: 'relative' }}>
               <CreditCard size={18} style={{ position: 'absolute', left: '12px', top: '14px', color: '#94a3b8' }} />
               <select
@@ -116,10 +116,10 @@ const ContactForm = () => {
                 onChange={handleChange}
                 style={{ padding: '12px 12px 12px 40px', borderRadius: '8px', border: '1px solid #ddd', width: '100%', appearance: 'none', background: '#fff' }}
               >
-                <option value="">Способ оплаты</option>
-                <option value="Crypto">Криптовалюта (USDT/BTC)</option>
-                <option value="Stripe">Stripe / Карта мира</option>
-                <option value="Bank">Банковский перевод</option>
+                <option value="">{t('contact.paymentMethod')}</option>
+                <option value="Crypto">{t('contact.paymentOptions.crypto', 'Криптовалюта (USDT/BTC)')}</option>
+                <option value="Stripe">{t('contact.paymentOptions.stripe', 'Stripe / Карта мира')}</option>
+                <option value="Bank">{t('contact.paymentOptions.bank', 'Банковский перевод')}</option>
               </select>
             </div>
           </div>
@@ -130,16 +130,16 @@ const ContactForm = () => {
             onChange={handleChange}
             style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', background: '#fff' }}
           >
-            <option value="ai-development">AI Разработка</option>
-            <option value="web-app">Веб-приложение</option>
-            <option value="mobile-app">Мобильное приложение</option>
-            <option value="consulting">Консалтинг</option>
+            <option value="ai-development">{t('contact.projectTypes.aiDevelopment', 'AI Разработка')}</option>
+            <option value="web-app">{t('contact.projectTypes.webApp', 'Веб-приложение')}</option>
+            <option value="mobile-app">{t('contact.projectTypes.mobileApp', 'Мобильное приложение')}</option>
+            <option value="consulting">{t('contact.projectTypes.consulting', 'Консалтинг')}</option>
           </select>
 
           <textarea
             name="message"
             rows="5"
-            placeholder="Описание проекта (воспользуйтесь AI-помощником справа для составления ТЗ)"
+            placeholder={t('contact.projectDescription')}
             required
             value={formData.message}
             onChange={handleChange}
@@ -165,14 +165,13 @@ const ContactForm = () => {
             }}
           >
             {status === 'loading' ? <Loader2 className="animate-spin" /> : status === 'success' ? <CheckCircle /> : <Send />}
-            {status === 'loading' ? 'Отправка...' : status === 'success' ? 'Заявка принята!' : 'Отправить заявку'}
+            {status === 'loading' ? t('contact.sending') : status === 'success' ? t('contact.success') : t('contact.send')}
           </button>
 
-          {status === 'error' && <p style={{ color: '#ef4444', textAlign: 'center' }}>Ошибка при отправке. Попробуйте снова.</p>}
+          {status === 'error' && <p style={{ color: '#ef4444', textAlign: 'center' }}>{t('contact.error', 'Ошибка при отправке. Попробуйте снова.')}</p>}
         </form>
       </div>
 
-      {/* Передаем текущее сообщение в ИИ для анализа */}
       <GeminiAIHelper
         onSuggestionInsert={handleAISuggestionInsert}
         currentMessage={formData.message}
