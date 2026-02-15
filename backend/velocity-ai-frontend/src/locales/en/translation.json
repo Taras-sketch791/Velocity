@@ -10,9 +10,8 @@
   "nav": {
     "home": "Home",
     "services": "Services",
-    "process": "Process",
+    "about": "About Us",
     "projects": "Projects",
-    "competencies": "Competencies",
     "contact": "Contact"
   },
   "auth": {
@@ -43,38 +42,23 @@
     }
   },
   "hero": {
+    "tag": "AI Revolution",
     "tagline": "We create the AI future",
     "title": "AI Development Studio",
     "mainTitle": "Creating the digital future <1>with artificial intelligence</1>",
+    "mainTitleLine1": "Creating the digital future",
+    "mainTitleLine2": "with artificial intelligence",
     "subtitle": "We create innovative AI-based products. We develop intelligent web systems and platforms.",
+    "subtitleText": "We develop intelligent systems that solve real business problems",
     "viewCases": "View cases",
     "stats": {
       "projects": "Projects completed",
       "clients": "Happy clients",
       "experience": "Years of experience",
-      "support": "24/7 Support"
-    }
-  },
-  "competencies": {
-    "title": "Competencies",
-    "techTitle": "Technologies",
-    "items": {
-      "ai": {
-        "title": "Artificial Intelligence",
-        "description": "Development of deep neural networks and machine learning systems for business automation."
-      },
-      "web": {
-        "title": "Web Development",
-        "description": "Creating high-load web services and corporate portals on modern tech stack."
-      },
-      "mobile": {
-        "title": "Mobile Applications",
-        "description": "Development of native and cross-platform mobile solutions of any complexity."
-      },
-      "cloud": {
-        "title": "Cloud Solutions",
-        "description": "Designing and optimizing cloud infrastructure and DevOps processes."
-      }
+      "support": "24/7 Support",
+      "projectsDone": "Projects done",
+      "yearsExp": "Years exp.",
+      "successRate": "Success rate"
     }
   },
   "services": {
@@ -91,18 +75,19 @@
     "dataAnalysis": "Data Analysis",
     "dataDescription": "Deep analytics and predictive models for business.",
     "cloudSolutions": "Cloud Solutions",
-    "cloudDescription": "Scalable server solutions for AI workloads."
-  },
-  "process": {
-    "title": "Our Process",
-    "analysis": "Analysis",
-    "analysisDescription": "Studying requirements and system design.",
-    "prototyping": "Prototyping",
-    "prototypingDescription": "Creating mockups and solution architecture.",
-    "development": "Development",
-    "developmentDescription": "Writing clean code and training models.",
-    "launch": "Launch",
-    "launchDescription": "System deployment and production launch."
+    "cloudDescription": "Scalable server solutions for AI workloads.",
+    "chatbots": "AI Chatbots",
+    "chatbotsDescription": "Intelligent assistants for 24/7 customer communication automation.",
+    "computerVision": "Computer Vision",
+    "computerVisionDescription": "Object recognition, face detection, image and video analysis in real time.",
+    "nlp": "Natural Language Processing (NLP)",
+    "nlpDescription": "Text analysis, sentiment, entity extraction, content generation.",
+    "recommenderSystems": "Recommender Systems",
+    "recommenderDescription": "Personalized product, content and service recommendations based on user behavior.",
+    "aiSecurity": "AI Security",
+    "aiSecurityDescription": "Anomaly detection, fraud prevention and cyberattack protection using ML.",
+    "mlops": "MLOps & DevOps",
+    "mlopsDescription": "Automation of deployment, monitoring and management of ML models in production."
   },
   "projects": {
     "title": "Our Projects",
@@ -153,20 +138,24 @@
       }
     }
   },
+  "catalog": {
+    "title": "Services <1>Catalog</1>",
+    "from": "from",
+    "addToCart": "Add to cart"
+  },
   "contact": {
     "title": "Contact Us",
     "subtitle": "Tell us about your project",
-    "form": {
-      "name": "Your name",
-      "email": "Email",
-      "budget": "Project budget",
-      "paymentMethod": "Payment method",
-      "projectType": "Project type",
-      "description": "Project description",
-      "send": "Send application",
-      "sending": "Sending...",
-      "success": "Message sent!"
-    },
+    "name": "Your name",
+    "email": "Email",
+    "budget": "Project budget",
+    "paymentMethod": "Payment method",
+    "projectType": "Project type",
+    "projectDescription": "Project description",
+    "send": "Send application",
+    "sending": "Sending...",
+    "success": "Message sent!",
+    "error": "Error sending. Please try again.",
     "options": {
       "payment": {
         "crypto": "Cryptocurrency (USDT/BTC)",
@@ -180,6 +169,47 @@
         "consulting": "Consulting"
       }
     }
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "back": "Back",
+    "remove": "Remove"
+  },
+  "profile": {
+    "title": "Dashboard",
+    "pageTitle": "My Account",
+    "loading": "Loading profile...",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saveSuccess": "Data saved",
+    "logout": "Logout",
+    "deleteAccount": "Delete account",
+    "confirmDelete": "Are you sure you want to delete your account? This action is irreversible.",
+    "finance": {
+      "title": "FINANCES",
+      "paymentMethods": "Payment methods",
+      "details": "Bank details"
+    },
+    "addCard": "Add card",
+    "cardNumber": "Card number",
+    "expiry": "Expiry date",
+    "cvc": "CVC",
+    "bankDetails": "Bank details",
+    "accountNumber": "Account number",
+    "bankName": "Bank name",
+    "swift": "SWIFT",
+    "paymentSaved": "Payment method saved",
+    "bankSaved": "Bank details saved"
   },
   "footer": {
     "about": "Velocity AI — Creating the digital future",

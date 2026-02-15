@@ -1,54 +1,55 @@
-import React, { Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+// src/App.jsx
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext'; // импортируем провайдер
 
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import Process from "./components/Process";
-import Projects from "./components/Projects";
-import Footer from "./components/Footer";
-import Competencies from "./components/Competencies/Competencies";
-import ContactForm from "./components/ContactForm";
-import RegisterPage from "./components/RegisterPage";
 
-// Компонент загрузки на случай если i18n еще не готов
-const Loading = () => (
-  <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh'
-  }}>
-    Загрузка...
-  </div>
-);
+// Импорт постоянных компонентов (не ленивых для главной)
+import Header from './components/Header';
+import HeroSection from './components/HeroSection';
+import Catalog from './components/Catalog';
+// import Competencies from "./components/Competencies/Competencies";
+import Projects from './components/Projects';
+import ContactForm from './components/ContactForm';
+import Footer from './components/Footer';
 
-function HomePage() {
+// Ленивая загрузка страниц (включая AboutPage)
+const ProfilePage = lazy(() => import('./components/ProfilePage'));
+const CartPage = lazy(() => import('./components/CartPage'));
+const LoginPage = lazy(() => import('./components/LoginPage'));
+const RegisterPage = lazy(() => import('./components/RegisterPage'));
+const AboutPage = lazy(() => import('./components/AboutPage')); // новый импорт
+
+// Главная страница (без About)
+const HomePage = () => {
   return (
-    <div className="app-main-wrapper">
-      <Header />
-      <main>
-        <Hero />
-        <Competencies />
-        <Services />
-        <Process />
-        <Projects />
-        <ContactForm />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <HeroSection />
+      <Catalog />
+{/*       <Competencies /> */}
+      <Projects />
+      <ContactForm />
+    </>
   );
-}
+};
 
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Suspense>
+    <div className="app-wrapper">
+      <Header />
+      <Suspense fallback={<div style={{ textAlign: 'center', padding: '100px', color: '#fff' }}>Загрузка...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />     {/* новый маршрут */}
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </Suspense>
+      {/* Футер будет показан на всех страницах, кроме тех, где он уже включён (но мы его оставим здесь глобально) */}
+      <Footer />
+    </div>
   );
 }
 

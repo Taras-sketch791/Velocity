@@ -1,144 +1,161 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../api';
 
 const RegisterPage = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState('');
 
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    setError('');
+
 
     if (formData.password !== formData.confirmPassword) {
-      setMessage(t('auth.errors.passwordMismatch'));
-      setMessageType('error');
+      setError('Пароли не совпадают');
       return;
     }
 
-    setLoading(true);
-
     try {
-      // 1. Регистрация
-      await axios.post(`${API_URL}/api/register/`, {
+      await api.post('/register/', {
         username: formData.username,
         email: formData.email,
         password: formData.password
       });
 
-      // 2. Автоматический вход после регистрации
-      const loginResponse = await axios.post(`${API_URL}/api/login/`, {
+
+      const loginRes = await api.post('/login/', {
         username: formData.username,
         password: formData.password
       });
 
-      localStorage.setItem('access_token', loginResponse.data.access);
-      localStorage.setItem('refresh_token', loginResponse.data.refresh);
+      // 3. Сохраняем токены и имя пользователя
+      // Проверяем наличие токенов в ответе (структура зависит от вашего бэкенда)
+      const data = loginRes.data;
+      const tokens = data.tokens || data; // на случай если токены приходят в корне
 
-      setMessageType('success');
-      setMessage(t('auth.success.registered'));
+      if (tokens && tokens.access) {
+        localStorage.setItem('access_token', tokens.access);
+        localStorage.setItem('refresh_token', tokens.refresh);
 
-      setTimeout(() => {
-        navigate('/'); // Переход на главную
-      }, 1500);
+        // СОХРАНЯЕМ ИМЯ: чтобы оно сразу подхватилось в Header.jsx
+        localStorage.setItem('username', formData.username);
 
-    } catch (err) {
-      setMessageType('error');
-      if (err.response?.data) {
-        const errorData = err.response.data;
-        // Извлекаем первую ошибку из ответа сервера
-        const firstError = Object.values(errorData).flat()[0];
-        setMessage(firstError || t('auth.errors.registrationFailed'));
+        // ПЕРЕХОДИМ НА ГЛАВНУЮ: используем href для полной перезагрузки состояния приложения
+        window.location.href = '/';
       } else {
-        setMessage(t('auth.errors.serverUnavailable'));
+        // Если регистрация прошла, но логин не вернул токены
+        navigate('/login');
       }
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      console.error('Registration error:', err);
+      const serverError = err.response?.data;
+
+      // Вывод ошибки от сервера (обработка разных форматов ответа)
+      if (serverError) {
+        if (typeof serverError === 'object') {
+          setError(Object.values(serverError)[0]);
+        } else {
+          setError(serverError);
+        }
+      } else {
+        setError('Ошибка соединения с сервером');
+      }
     }
   };
 
   return (
-    <div className="auth-page" style={{ padding: '80px 20px', display: 'flex', justifyContent: 'center' }}>
-      <div className="auth-card" style={{ maxWidth: '450px', width: '100%', background: '#fff', padding: '40px', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
+    <div style={{ padding: '100px 20px', display: 'flex', justifyContent: 'center', background: '#f4f7f6', minHeight: '100vh' }}>
+      <div style={{ maxWidth: '400px', width: '100%', background: '#fff', padding: '30px', borderRadius: '15px', boxShadow: '0 8px 20px rgba(0,0,0,0.1)' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '25px', color: '#333' }}>Регистрация</h2>
 
-        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-          <h1 style={{ fontSize: '24px', margin: '0 0 10px 0' }}>{t('auth.registrationTitle')}</h1>
-          <p style={{ color: '#666' }}>Velocity AI Studio</p>
-        </div>
-
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div className="form-group">
-            <input
-              type="text"
-              placeholder={t('auth.placeholders.username')}
-              value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              placeholder={t('auth.placeholders.email')}
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              placeholder={t('auth.placeholders.password')}
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              placeholder={t('auth.placeholders.confirmPassword')}
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              required
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-          </div>
-
-          <button type="submit" disabled={loading} style={{ padding: '14px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}>
-            {loading ? t('common.loading') : t('auth.createAccountBtn')}
-          </button>
-        </form>
-
-        {message && (
-          <div style={{ marginTop: '20px', padding: '10px', borderRadius: '8px', textAlign: 'center', backgroundColor: messageType === 'error' ? '#fff1f0' : '#f6ffed', color: messageType === 'error' ? '#cf1322' : '#389e0d', border: `1px solid ${messageType === 'error' ? '#ffa39e' : '#b7eb8f'}` }}>
-            {message}
+        {error && (
+          <div style={{ color: '#ef4444', backgroundColor: '#fee2e2', padding: '10px', borderRadius: '8px', marginBottom: '15px', fontSize: '14px', textAlign: 'center' }}>
+            {error}
           </div>
         )}
 
-        <div style={{ marginTop: '25px', textAlign: 'center' }}>
-          <p>{t('auth.alreadyHaveAccount')} <a href="/login" style={{ color: '#007bff', textDecoration: 'none', fontWeight: '500' }}>{t('auth.loginLink')}</a></p>
-        </div>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          <input
+            type="text"
+            name="username"
+            placeholder="Имя пользователя"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Подтвердите пароль"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+
+          <button type="submit" style={buttonStyle}>
+            Создать аккаунт
+          </button>
+        </form>
+
+        <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '14px', color: '#666' }}>
+          Уже есть аккаунт? <Link to="/login" style={{ color: '#007bff', textDecoration: 'none', fontWeight: '600' }}>Войти</Link>
+        </p>
       </div>
     </div>
   );
+};
+
+const inputStyle = {
+  padding: '12px',
+  borderRadius: '8px',
+  border: '1px solid #ddd',
+  fontSize: '14px',
+  outline: 'none',
+  width: '100%'
+};
+
+const buttonStyle = {
+  padding: '12px',
+  borderRadius: '8px',
+  border: 'none',
+  background: '#007bff',
+  color: '#fff',
+  fontSize: '16px',
+  fontWeight: '600',
+  cursor: 'pointer',
+  marginTop: '10px',
+  transition: 'background 0.3s'
 };
 
 export default RegisterPage;

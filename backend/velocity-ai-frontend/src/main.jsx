@@ -1,17 +1,17 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
-import './i18n'; // Импорт i18n ДО рендера App
+import { CartProvider } from './context/CartContext';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css'; // или './main.css'
+import './i18n';
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CartProvider>
   </React.StrictMode>
 );

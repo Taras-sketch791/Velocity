@@ -24,7 +24,7 @@ const Footer = () => {
           <div className="footer-contacts-section">
             <h3 className="contacts-title">{t('footer.contact')}</h3>
             <div className="social-links">
-              {/* ... ссылки на соцсети */}
+
             </div>
             <p className="footer-copyright-small">
               {t('footer.copyright', { year: currentYear })}

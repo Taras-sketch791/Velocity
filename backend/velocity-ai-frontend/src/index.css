@@ -2213,4 +2213,240 @@ button {
     border: none;
     margin-top: 10px;
   }
+  /* Секция About */
+.about-section {
+  padding: 100px 0;
+  background: #f9fafc;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.about-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.about-title-accent {
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Статистика */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.about-stat-item {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.about-stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #4F46E5;
+  line-height: 1.2;
+}
+
+.about-stat-label {
+  font-size: 1rem;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+/* Карточки особенностей */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+.about-feature-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px rgba(79, 70, 229, 0.1);
+}
+
+.about-feature-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  background: #EEF2FF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4F46E5;
+}
+
+.about-feature-icon svg {
+  width: 35px;
+  height: 35px;
+}
+
+.about-feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+.about-feature-description {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Призыв к действию */
+.about-cta {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.about-cta-text {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .about-stats,
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+  .about-title {
+    font-size: 2rem;
+  }
+}
+.service-teal { --service-color: #14b8a6; }
+.service-orange { --service-color: #f97316; }
+.service-pink { --service-color: #ec4899; }
+.service-cyan { --service-color: #06b6d4; }
+.service-amber { --service-color: #f59e0b; }
+.service-lime { --service-color: #84cc16; }
+
+/* Если вы используете переменную для фона иконки или акцента */
+.service-card-item .service-icon-wrapper {
+  background: color-mix(in srgb, var(--service-color) 15%, white);
+}
+.service-card-item .service-icon-main {
+  color: var(--service-color);
+}
+.about-directions {
+  margin: 60px 0 40px;
+}
+
+.about-directions-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+.about-directions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.about-direction-card {
+  background: #1e293b;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-direction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px rgba(79, 70, 229, 0.2);
+}
+
+.about-direction-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: #2d3a4f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4F46E5;
+}
+
+.about-direction-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.about-direction-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.about-direction-description {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .about-directions-grid {
+    grid-template-columns: 1fr;
+  }
+}
 }

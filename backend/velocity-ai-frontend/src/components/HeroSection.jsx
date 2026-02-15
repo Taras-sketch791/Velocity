@@ -1,58 +1,82 @@
-import React from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Bot, Sparkles, X, Send, MessageCircle } from 'lucide-react';
 
 export default function HeroSection() {
   const { t } = useTranslation();
+  const [isAiOpen, setIsAiOpen] = useState(false);
 
   return (
-    <section className="hero-main-section">
-      <div className="hero-glow-container">
-        <div className="glow-top" />
-        <div className="glow-bottom" />
-      </div>
+    <section id="hero" className="hero">
+      <div className="hero-container">
+        <div className="hero-tag">
+          <span className="tag-dot"></span>
+          {t('hero.tag', 'AI Revolution')}
 
-      <div className="hero-content-container">
-        <div className="hero-text-center">
-          <h1 className="hero-title">
-            <Trans i18nKey="hero.mainTitle">
-              Создаём цифровое будущее
-              <br />
-              <span className="title-gradient">
-                с искусственным интеллектом
-              </span>
-            </Trans>
-          </h1>
-
-          <p className="hero-subtitle-text">
-            {t('hero.subtitleText', 'Разрабатываем intelligent веб‑системы, платформы и ботов, которые решают реальные бизнес‑задачи')}
-          </p>
-
-          <div className="hero-actions">
-            <button className="btn btn-primary-action">
-              {t('common.discussProject')}
-            </button>
-
-            <button className="btn btn-secondary-action">
-              {t('hero.viewCases', 'Смотреть кейсы')}
+          <div className="gemini-ai-helper">
+            <button className="gemini-toggle-btn" onClick={() => setIsAiOpen(true)}>
+              <Bot size={16} />
+              AI Agent
             </button>
           </div>
+        </div>
 
-          <div className="hero-stats-grid">
-            <Stat value="30+" label={t('hero.stats.projectsDone', 'реализованных проектов')} />
-            <Stat value="2+" label={t('hero.stats.yearsExp', 'года AI‑разработки')} />
-            <Stat value="100%" label={t('hero.stats.successRate', 'успешных запусков')} />
+        <h1 className="hero-title">
+          {t('hero.mainTitleLine1', 'Создаём цифровое будущее')}
+          <span className="gradient-text">
+             <br /> {t('hero.mainTitleLine2', 'с искусственным интеллектом')}
+          </span>
+        </h1>
+
+        <p className="hero-subtitle">
+          {t('hero.subtitleText', 'Разрабатываем интеллектуальные системы, которые решают реальные бизнес-задачи')}
+        </p>
+
+        <div className="hero-buttons">
+          <button className="btn btn-primary">{t('common.discussProject')}</button>
+
+          <a href="https://t.me/TarasMaxs" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <MessageCircle size={18} />
+            Telegram
+          </a>
+        </div>
+
+        <div className="stats">
+          <div className="stat-item">
+            <p className="stat-number">30+</p>
+            <p className="stat-label">{t('hero.stats.projectsDone')}</p>
+          </div>
+          <div className="stat-item">
+            <p className="stat-number">2+</p>
+            <p className="stat-label">{t('hero.stats.yearsExp')}</p>
+          </div>
+          <div className="stat-item">
+            <p className="stat-number">100%</p>
+            <p className="stat-label">{t('hero.stats.successRate')}</p>
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function Stat({ value, label }) {
-  return (
-    <div className="stat-item-new">
-      <p className="stat-value">{value}</p>
-      <p className="stat-label-new">{label}</p>
-    </div>
+      {isAiOpen && (
+        <div className="gemini-modal-overlay">
+          <div className="gemini-modal">
+            <div className="gemini-header">
+              <div className="gemini-header-left">
+                <Sparkles />
+                <span>Velocity AI Assistant</span>
+              </div>
+              <button className="gemini-close-btn" onClick={() => setIsAiOpen(false)}><X /></button>
+            </div>
+            <div className="gemini-content">
+              <div className="ai-placeholder">Задайте вопрос нашему ИИ агенту...</div>
+              <div className="gemini-input-form">
+                <input type="text" className="gemini-input" placeholder="Напишите сообщение..." />
+                <button className="gemini-send-btn"><Send size={20} /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }

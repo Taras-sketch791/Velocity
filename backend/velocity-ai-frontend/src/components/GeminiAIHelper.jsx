@@ -29,11 +29,11 @@ const GeminiAIHelper = ({ onSuggestionInsert, currentMessage }) => {
     }
   }, [displayedText]);
 
-  // --- ЛОГИКА ГЕНЕРАЦИИ ТЗ НА ОСНОВЕ ТЕКСТА ---
+
   const generateProTZ = (input) => {
     const text = input.toLowerCase();
 
-    // Интеллектуальное определение функционала
+
     const features = [];
     if (text.includes("вход") || text.includes("личный") || text.includes("профиль")) features.push("Система аккаунтов и профилей");
     if (text.includes("магазин") || text.includes("оплат") || text.includes("карт")) features.push("E-commerce модуль и эквайринг");
