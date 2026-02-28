@@ -1,0 +1,191 @@
+[
+{
+  "model": "app.category",
+  "pk": 1,
+  "fields": {
+    "name": "Электроника",
+    "slug": "elektronika",
+    "icon": "Smartphone"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 2,
+  "fields": {
+    "name": "Одежда",
+    "slug": "odezhda",
+    "icon": "Shirt"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 3,
+  "fields": {
+    "name": "Дом и сад",
+    "slug": "dom-i-sad",
+    "icon": "Home"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 4,
+  "fields": {
+    "name": "Детям",
+    "slug": "detyam",
+    "icon": "Baby"
+  }
+},
+{
+  "model": "app.category",
+  "pk": 5,
+  "fields": {
+    "name": "Спорт",
+    "slug": "sport",
+    "icon": "Activity"
+  }
+},
+{
+  "model": "app.product",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "title": "Смартфон Galaxy S23 Ultra",
+    "brand": "Samsung",
+    "description": "Флагманский смартфон с камерой 200 МП, 12 ГБ ОЗУ, 256 ГБ ПЗУ, экран 6.8 дюйма",
+    "price": 120000.00,
+    "discount_price": 99990.00,
+    "image": "products/samsung_s23_ultra.jpg",
+    "rating": 4.8,
+    "review_count": 156,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 2,
+  "fields": {
+    "category": 1,
+    "title": "Ноутбук MacBook Pro 16 M2",
+    "brand": "Apple",
+    "description": "Ноутбук с чипом M2 Max, 32 ГБ RAM, 1 ТБ SSD, дисплей Liquid Retina XDR",
+    "price": 350000.00,
+    "discount_price": 329990.00,
+    "image": "products/macbook_pro_16.jpg",
+    "rating": 4.9,
+    "review_count": 89,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 3,
+  "fields": {
+    "category": 2,
+    "title": "Кроссовки Nike Air Max 270",
+    "brand": "Nike",
+    "description": "Мужские кроссовки с воздушной подушкой, цвет чёрный/белый",
+    "price": 12000.00,
+    "discount_price": 9990.00,
+    "image": "products/nike_air_max_270.jpg",
+    "rating": 4.6,
+    "review_count": 234,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 4,
+  "fields": {
+    "category": 2,
+    "title": "Футболка оверсайз",
+    "brand": "Adidas",
+    "description": "Хлопковая футболка с принтом, размеры S-XXL",
+    "price": 3500.00,
+    "discount_price": 2590.00,
+    "image": "products/adidas_tshirt.jpg",
+    "rating": 4.5,
+    "review_count": 567,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 5,
+  "fields": {
+    "category": 3,
+    "title": "Набор кухонных ножей",
+    "brand": "Tefal",
+    "description": "6 предметов, сталь, деревянная подставка",
+    "price": 4500.00,
+    "discount_price": 3990.00,
+    "image": "products/tefal_knives.jpg",
+    "rating": 4.7,
+    "review_count": 43,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 6,
+  "fields": {
+    "category": 4,
+    "title": "Конструктор LEGO City",
+    "brand": "LEGO",
+    "description": "Пожарная станция, 600 деталей",
+    "price": 5500.00,
+    "discount_price": 4890.00,
+    "image": "products/lego_city.jpg",
+    "rating": 4.9,
+    "review_count": 128,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 7,
+  "fields": {
+    "category": 5,
+    "title": "Велосипед горный",
+    "brand": "Stels",
+    "description": "26 дюймов, алюминиевая рама, 21 скорость",
+    "price": 28000.00,
+    "discount_price": 23990.00,
+    "image": "products/stels_bike.jpg",
+    "rating": 4.4,
+    "review_count": 76,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 8,
+  "fields": {
+    "category": 1,
+    "title": "Наушники Sony WH-1000XM5",
+    "brand": "Sony",
+    "description": "Беспроводные, шумоподавление, 30 ч работы",
+    "price": 30000.00,
+    "discount_price": 25990.00,
+    "image": "products/sony_wh1000xm5.jpg",
+    "rating": 4.9,
+    "review_count": 312,
+    "in_stock": true
+  }
+},
+{
+  "model": "app.product",
+  "pk": 9,
+  "fields": {
+    "category": 2,
+    "title": "Куртка пуховик",
+    "brand": "The North Face",
+    "description": "Зимняя, утеплённая, водонепроницаемая",
+    "price": 18000.00,
+    "discount_price": 14990.00,
+    "image": "products/north_face_jacket.jpg",
+    "rating": 4.7,
+    "review_count": 92,
+    "in_stock": true
+  }
+}
+]
