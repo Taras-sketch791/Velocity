@@ -1,6 +1,0 @@
-[submodule "AI-Development-Studio"]
-	path = AI-Development-Studio
-	url = https://github.com/Taras-sketch791/AI-Development-Studio.git
-[submodule "backend/project/project"]
-	path = backend/project/project
-	url = https://github.com/Taras-sketch791/AI-Development-Studio/tree/main/backend/project
